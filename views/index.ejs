@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <div>
+      <p style="float: left; padding-left: 50px; padding-right: 100px; padding-bottom: 40px"><img src = "../images/elf.jpeg" /></p>
+      <p style="width: 90%"><%= intro %></p>
+    </div>
+    <div>
+      <p style="float: left; padding-left: 100px; padding-right: 20px;"><img src="../images/scroll.jpeg" /> </p>
+      <p style="padding-top: 20px">
+        <form action="../actions/upload.js">
+          <input size="60" type="text" class="textInput" name="filePath" placeholder="<%= temptext %>" >
+          <input type="submit" class="sendButton" value="Send to Santa">
+        </form>
+      </p>
+    </div>
+  </body>
+</html>
