@@ -43,7 +43,7 @@
               <img src = "../images/gingerbreadboy.jpeg" />
             </p>
 
-            <p style="width: 90%;  padding-top: 50px; padding-bottom: 100px">
+            <p style="width: 90%;  padding-top: 50px; padding-bottom: 50px">
               <%= oops %>
             </p>
 
@@ -54,7 +54,7 @@
                 <%= confirmNice %>
               </label>
 
-              <div class="finePrint" style="padding-top: 10px; padding-bottom: 60px; float: left;">
+              <div class="finePrint" style="padding-top: 10px; padding-bottom: 60px; display: block; float: left;">
                 Santa's gonna need a csv formatted file with a column
                 labeled <b>"address"</b>, and your naughty-or-nice status checks
                 out you should get back that same csv file but with <b>"lat" "lng"</b> columns!!! How fun!
@@ -68,13 +68,28 @@
           </div>
 
           <div>
-            <div style="padding-top: 20px; padding-left: 10%; padding-right: 10%">
-              <input id="email" type="text" name="email" class="textInput" size="40%" placeholder="Email: naughty@northpole.com" >
+            <div style="padding-top: 10px; padding-left: 10%; padding-right: 10%;">
+              <div>
+                <input id="email"
+                     type="text"
+                     name="email"
+                     class="textInput"
+                     style="width: 415px;
+                            display: block;
+                            margin: 0 auto;"
+                     placeholder="Email: naughty@northpole.com" >
+              </div>
 
-              <input id="file"  type="file" name="csvFile" class="inputfile" data-multiple-caption="{count} files selected" multiple />
+              <div style="padding-bottom: 20px;">
+              <!-- hidden file input selector -->
+              <input id="file"
+                     type="file"
+                     name="csvFile"
+                     class="inputfile"
+                     data-multiple-caption="{count} files selected" multiple />
 
               <!-- Label for file selector with little svg icon -->
-              <label style="width: 50%; float: right;" for="file">
+              <label style="width: 450px; display: block; margin: 0 auto;" for="file">
 
                 <svg style="padding-left: 20px;
                             padding-right: 5px;
@@ -100,6 +115,7 @@
                 </svg>
                 <span>Pick a CSV file...</span>
               </label>
+              </div>
             </div>
             <p style="width: 100%">
               <button id="send" type="submit" class="scrollButton" style="width: 100%">
