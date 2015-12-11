@@ -43,6 +43,11 @@ var options = {
   }
 };
 
+var RESULTS_DIR = __dirname + '../public/results';
+if (!fs.existsSync(RESULTS_DIR)) {
+  fs.mkdirSync(RESULTS_DIR);
+}
+
 var uploader = require('blueimp-file-upload-expressjs')(options);
 
 router.post('/upload', function(req, res) {
