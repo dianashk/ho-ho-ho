@@ -43,7 +43,7 @@ var options = {
   }
 };
 
-var RESULTS_DIR = __dirname + '../public/results';
+var RESULTS_DIR = path.resolve(path.join(__dirname, '/../public/results'));
 if (!fs.existsSync(RESULTS_DIR)) {
   fs.mkdirSync(RESULTS_DIR);
 }
