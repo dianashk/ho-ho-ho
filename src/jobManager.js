@@ -2,9 +2,7 @@ var path = require('path');
 var csvgeocode = require('csvgeocode');
 var fs = require('fs');
 
-module.exports.addJob = function addJob(resultsDir, email, name) {
-
-  email = email || 'unknown@email.com';
+module.exports.addJob = function addJob(resultsDir, email, name, callback) {
 
   var inputPath = path.resolve(path.join(resultsDir, name));
   var resultPath = path.resolve(path.join(resultsDir, 'from-santa-with-love.csv'));
@@ -37,6 +35,7 @@ module.exports.addJob = function addJob(resultsDir, email, name) {
       console.log('row', result, row);
     })
     .on('complete', function(summary) {
-    console.log('[FINISHED]', inputPath, email, resultPath, summary);
+      console.log('[FINISHED]', inputPath, email, resultPath, summary);
+      callback(null, resultPath);
   })
 };

@@ -68,12 +68,11 @@ router.post('/upload', function(req, res) {
 
     var copyStream = fs.createReadStream(tempFile).pipe(fs.createWriteStream(jobFile));
     copyStream.on('finish', function () {
-      jobMgr.addJob(jobDir, csvFile.fields.email, 'original.csv');
-
-      // delete temp file to keep the server clean
-      fs.unlink(tempFile);
-
-      res.redirect('/?timestamp=' + timestamp);
+      jobMgr.addJob(jobDir, csvFile.fields.email, 'original.csv', function () {
+        // delete temp file to keep the server clean
+        fs.unlink(tempFile);
+        res.redirect('/results/' + timestamp + '/from-santa-with-love.csv');
+      });
     });
   });
 });
