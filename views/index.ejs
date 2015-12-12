@@ -9,7 +9,7 @@
 
   <body>
 
-    <h1><%= title %></h1>
+    <h1 style="text-align: center;"><%= title %></h1>
 
     <!-- INTRO DIV -->
     <div class="intro">
@@ -20,11 +20,11 @@
           });
         });
       </script>
-      <p style="float: left; padding-left: 50px; padding-right: 100px; padding-bottom: 10px">
-        <img src = "../images/elf.jpeg" />
-      </p>
+      <div style="padding-bottom: 10px">
+        <img width="20%" style="display: block; margin: 0 auto;" src = "../images/elf.png" />
+      </div>
 
-      <p style="width: 90%"><%= intro %></p>
+      <div style="display: block; margin: 0 auto; width: 70%; text-align: center;"><%= intro %></div>
 
       <!-- scroll down button -->
       <p style="width: 100%">
@@ -36,40 +36,39 @@
 
     <!-- UPLOAD DIV -->
     <div class="upload">
-      <div>
-        <form method="post" action="/upload" enctype="multipart/form-data">
+
+      <div style="width: 100%; padding-bottom: 10%;">
+
+        <!-- left part of row with text -->
+        <div style="float: left; width: 70%; padding-bottom: 10%">
           <div>
-            <p style="float: left; padding-left: 50px; padding-right:50px; padding-bottom: 50px">
-              <img src = "../images/gingerbreadboy.jpeg" />
+            <p class="textInfo" style="width: 90%; float: left; padding-top: 10%;">
+              So, Santa's gonna need a csv formatted file with a column
+              labeled <b>"address"</b>, and your naughty-or-nice status checks
+              out you should get back that same csv file but with <b>"lat" "lng"</b> columns!!! How fun!
+              <br><br>
+              You'll also get an email with the link to the results so you can
+              keep track of and share them. It's truly the gift that keeps on giving...
+              for a week, after that we're going to delete them, so do save them somewhere.
             </p>
-
-            <p style="width: 90%;  padding-top: 50px; padding-bottom: 50px">
-              <%= oops %>
-            </p>
-
-            <div style="width: 70%;  padding-left: 15%">
-              <input type="checkbox" id="confirmNice" name="confirmNice" style="float: left;" />
-
-              <label class="official" for="confirmNice">
-                <%= confirmNice %>
-              </label>
-
-              <div class="finePrint" style="padding-top: 10px; padding-bottom: 60px; display: block; float: left;">
-                Santa's gonna need a csv formatted file with a column
-                labeled <b>"address"</b>, and your naughty-or-nice status checks
-                out you should get back that same csv file but with <b>"lat" "lng"</b> columns!!! How fun!
-                <br><br>
-                You'll also get an email with the link to the results so you can
-                keep track of and share them. It's truly the gift that keeps on giving...
-                for a week, after that we're going to delete them, so do save them somewhere.
-              </div>
-
-            </div>
           </div>
+        </div>
 
-          <div>
-            <div style="padding-top: 10px; padding-left: 10%; padding-right: 10%;">
-              <div>
+        <!-- right part of row with image -->
+        <div style="width: 30%; float: right; padding-top: 10%;">
+          <img width="70%" src="../images/gingerbreadboy.png" />
+        </div>
+
+      </div>
+
+
+      <!-- form should take up 70% of the width, and be centered -->
+      <div style="width: 100%;">
+        <form method="post" action="/upload" enctype="multipart/form-data">
+
+          <table style="width: 100%;">
+            <tr>
+              <td>
                 <input id="email"
                      type="text"
                      name="email"
@@ -77,54 +76,68 @@
                      style="width: 415px;
                             display: block;
                             margin: 0 auto;"
-                     placeholder="Email: naughty@northpole.com" >
-              </div>
+                     placeholder="Email: naughty@northpole.com" />
+              </td>
+            </tr>
 
-              <div style="padding-bottom: 20px;">
-              <!-- hidden file input selector -->
-              <input id="file"
-                     type="file"
-                     name="csvFile"
-                     class="inputfile"
-                     data-multiple-caption="{count} files selected" multiple />
+            <tr>
+              <td>
+                <!-- file selector button -->
+                <div style="display: block; margin: 0 auto;">
+                  <!-- hidden file input selector -->
+                  <input id="file"
+                         type="file"
+                         name="csvFile"
+                         class="inputfile"
+                         data-multiple-caption="{count} files selected" multiple />
 
-              <!-- Label for file selector with little svg icon -->
-              <label style="width: 450px; display: block; margin: 0 auto;" for="file">
+                  <!-- Label for file selector with little svg icon -->
+                  <label style="height: 90px; width: 450px; text-align: center; display: block; margin: 0 auto;" for="file">
 
-                <svg style="padding-left: 20px;
-                            padding-right: 5px;
-                            padding-top: 5px;
-                            padding-bottom: 0px"
-                     xmlns="http://www.w3.org/2000/svg"
-                     viewBox="0 0 64 64"
-                     height="48">
+                    <svg style="width: 100%"
+                         xmlns="http://www.w3.org/2000/svg"
+                         viewBox="0 -10 64 64"
+                         height="40">
 
-                  <path fill="wheat"
-                        d="M42.361,13.271c-0.5-1.865-2.423-2.976-4.287-2.476l-16.261,4.357c-1.863,0.5-2.974,2.422-2.475,4.288
-                           c0.36,1.343,1.464,2.283,2.747,2.523l3.436,12.821l-3.688,2.13c-4.197,2.423-5.642,7.811-3.218,12.01
-                           c1.174,2.034,3.069,3.488,5.339,4.097c1.511,0.405,3.065,0.402,4.538,0.008c0.736-0.197,1.454-0.494,2.133-0.886l11.547-6.667
-                           c3.243-1.872,4.947-5.6,4.224-9.345l-5.152-19.3C42.236,15.981,42.721,14.614,42.361,13.271z M27.186,36.132
-                           c0.393-0.226,0.583-0.688,0.467-1.124l-3.543-13.224l15.293-4.098l3.537,13.243c-4.688,1.782-7.368,6.875-6.042,11.823
-                           c0.265,0.988,0.676,1.909,1.216,2.757l-7.17,4.139c0.496-1.715,0.527-3.55,0.055-5.315c-0.862-3.217-3.248-5.71-6.276-6.777
-                           L27.186,36.132z M24.471,51.089c-1.753-0.47-3.217-1.594-4.124-3.165c-1.749-3.031-0.89-6.861,1.876-8.879
-                           c3.26,0.33,5.989,2.618,6.844,5.806c0.564,2.106,0.225,4.337-0.913,6.186C26.965,51.391,25.699,51.418,24.471,51.089z
-                           M41.172,43.743l-1.329,0.768c-0.454-0.694-0.794-1.457-1.014-2.275c-1.039-3.879,1.011-7.865,4.632-9.354l0.987,3.696
-                           C44.994,39.417,43.678,42.297,41.172,43.743z M39.369,15.625l-16.261,4.357c-0.799,0.214-1.623-0.262-1.837-1.061
-                           c-0.215-0.8,0.261-1.624,1.061-1.839l16.26-4.356c0.799-0.214,1.623,0.262,1.838,1.062C40.644,14.587,40.168,15.412,39.369,15.625z">
-                  </path>
-                </svg>
-                <span>Pick a CSV file...</span>
-              </label>
-              </div>
-            </div>
-            <p style="width: 100%">
+                      <path fill="wheat"
+                            d="M42.361,13.271c-0.5-1.865-2.423-2.976-4.287-2.476l-16.261,4.357c-1.863,0.5-2.974,2.422-2.475,4.288
+                               c0.36,1.343,1.464,2.283,2.747,2.523l3.436,12.821l-3.688,2.13c-4.197,2.423-5.642,7.811-3.218,12.01
+                               c1.174,2.034,3.069,3.488,5.339,4.097c1.511,0.405,3.065,0.402,4.538,0.008c0.736-0.197,1.454-0.494,2.133-0.886l11.547-6.667
+                               c3.243-1.872,4.947-5.6,4.224-9.345l-5.152-19.3C42.236,15.981,42.721,14.614,42.361,13.271z M27.186,36.132
+                               c0.393-0.226,0.583-0.688,0.467-1.124l-3.543-13.224l15.293-4.098l3.537,13.243c-4.688,1.782-7.368,6.875-6.042,11.823
+                               c0.265,0.988,0.676,1.909,1.216,2.757l-7.17,4.139c0.496-1.715,0.527-3.55,0.055-5.315c-0.862-3.217-3.248-5.71-6.276-6.777
+                               L27.186,36.132z M24.471,51.089c-1.753-0.47-3.217-1.594-4.124-3.165c-1.749-3.031-0.89-6.861,1.876-8.879
+                               c3.26,0.33,5.989,2.618,6.844,5.806c0.564,2.106,0.225,4.337-0.913,6.186C26.965,51.391,25.699,51.418,24.471,51.089z
+                               M41.172,43.743l-1.329,0.768c-0.454-0.694-0.794-1.457-1.014-2.275c-1.039-3.879,1.011-7.865,4.632-9.354l0.987,3.696
+                               C44.994,39.417,43.678,42.297,41.172,43.743z M39.369,15.625l-16.261,4.357c-0.799,0.214-1.623-0.262-1.837-1.061
+                               c-0.215-0.8,0.261-1.624,1.061-1.839l16.26-4.356c0.799-0.214,1.623,0.262,1.838,1.062C40.644,14.587,40.168,15.412,39.369,15.625z">
+                      </path>
+                    </svg>
+                    <p style="width: 450px; text-align: center; display: block; margin: 0 auto;">Pick a CSV file...</p>
+                  </label>
+                </div>
+              </td>
+            </tr>
+            <tr style="height: 35px;"></tr>
+            <tr>
+              <td>
+                <div style="width: 430px; padding-bottom: 10%; display: block; margin: 0 auto;">
+                  <input type="checkbox" id="confirmNice" name="confirmNice" style="float: left;" />
+                  <label class="finePrint" style="float: right;" for="confirmNice">
+                    <%= confirmNice %>
+                  </label>
+                </div>
+              </td>
+            </tr>
+          </table>
+
+            <div style="width: 70%; display: block; margin: 0 auto;">
               <button id="send" type="submit" class="scrollButton" style="width: 100%">
                 <img src="../images/downarrow.png" />
               </button>
-            </p>
+            </div>
           </div>
         </form>
-      </div>
     </div>
     <script src="javascripts/custom-file-input.js"></script>
   </body>
