@@ -2,6 +2,7 @@
 <html>
 
   <head>
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter|Inconsolata|Shadows+Into+Light+Two|Calligraffitti|Nothing+You+Could+Do' rel='stylesheet' type='text/css'>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script type="text/javascript" src="../javascripts/jquery-1.11.3.min.js"></script>
@@ -9,43 +10,47 @@
 
   <body>
 
-    <h1 style="text-align: center;"><%= title %></h1>
+    <h1 style="text-align: center; margin-bottom: 10px;">
+      <%= title %>
+    </h1>
 
     <!-- INTRO DIV -->
-    <div class="intro">
+    <div id="intro" class="intro" style="display: none;">
       <script type="text/javascript">
+        // handler for scroll button click
         $(document).ready(function () {
           $("#scrollToUpload").click(function() {
-            $('html,body').animate({ scrollTop: $(".upload").offset().top}, 'slow');
+            document.getElementById('upload').style.display = 'block';
+            $('html,body').animate({ scrollTop: $(".upload").offset().top}, 2000);
           });
         });
       </script>
       <div style="padding-bottom: 10px">
-        <img width="20%" style="display: block; margin: 0 auto;" src = "../images/elf.png" />
+        <img width="20%" class="centered" style="padding-bottom: 2%;" src = "../images/elf.png" />
       </div>
 
-      <div style="display: block; margin: 0 auto; width: 70%; text-align: center;"><%= intro %></div>
+      <div class="textInfo" style="display: block; margin: 0 auto; width: 70%; text-align: center;"><%= intro %></div>
 
       <!-- scroll down button -->
       <p style="width: 100%">
-        <button id="scrollToUpload" type="button" class="scrollButton" style="width: 100%">
-          <img src="../images/downarrow.png" />
+        <button id="scrollToUpload" type="button" class="scrollButton">
+          <div style="opacity: 0.8;"><b>I want it!</b></div>
         </button>
       </p>
     </div>
 
     <!-- UPLOAD DIV -->
-    <div class="upload">
+    <div id="upload" class="upload" style="display: none;">
 
-      <div style="width: 100%; padding-bottom: 10%;">
+      <div style="width: 100%; padding-bottom: 6%;">
 
         <!-- left part of row with text -->
-        <div style="float: left; width: 70%; padding-bottom: 10%">
+        <div style="float: left; width: 70%; padding-bottom: 5%">
           <div>
             <p class="textInfo" style="width: 90%; float: left; padding-top: 10%;">
               So, Santa's gonna need a csv formatted file with a column
-              labeled <b>"address"</b>, and your naughty-or-nice status checks
-              out you should get back that same csv file but with <b>"lat" "lng"</b> columns!!! How fun!
+              labeled <b>"address"</b>, and you'll get back that same csv
+              file but with <b>"lat" "lng"</b> columns!!! How fun!
               <br><br>
               You'll also get an email with the link to the results so you can
               keep track of and share them. It's truly the gift that keeps on giving...
@@ -56,7 +61,7 @@
 
         <!-- right part of row with image -->
         <div style="width: 30%; float: right; padding-top: 10%;">
-          <img width="70%" src="../images/gingerbreadboy.png" />
+          <img width="90%" src="../images/candycane.png" />
         </div>
 
       </div>
@@ -64,7 +69,37 @@
 
       <!-- form should take up 70% of the width, and be centered -->
       <div style="width: 100%;">
-        <form method="post" action="/upload" enctype="multipart/form-data">
+        <script type="text/javascript">
+          function submitForm() {
+            console.log('submitting');
+
+            var form = document.forms.namedItem("uploadForm");
+            var oData   = new FormData(form);
+
+            oData.append("CustomField", "This is some extra data");
+
+            var oReq = new XMLHttpRequest();
+            oReq.open("POST", "/upload", true);
+            oReq.onload = function (oEvent) {
+              console.log(oReq);
+
+              if (oReq.status === 200 && oReq.responseText) {
+                document.getElementById('downloadLink').href = oReq.responseText;
+                document.getElementById('downloadReady').style.display = 'block';
+                $('html,body').animate({ scrollTop: $('.downloadReady').offset().top}, 2000);
+              } else {
+                alert('There was a problem: ' + oReq.responseText);
+              }
+            };
+
+            oReq.send(oData);
+
+            document.getElementById('waitScreen').style.display = 'block';
+            $('html,body').animate({ scrollTop: $('.waitScreen').offset().top}, 2000);
+
+          }
+        </script>
+        <form id="uploadForm" action="Javascript:submitForm()" enctype="multipart/form-data">
 
           <table style="width: 100%;">
             <tr>
@@ -131,14 +166,63 @@
             </tr>
           </table>
 
-            <div style="width: 70%; display: block; margin: 0 auto;">
-              <button id="send" type="submit" class="scrollButton" style="width: 100%">
-                <img src="../images/downarrow.png" />
-              </button>
-            </div>
+          <div style="width: 70%; display: block; margin: 0 auto;">
+            <button id="send" type="submit" class="scrollButton">
+              <div>Make it, make it!</div>
+            </button>
           </div>
         </form>
+      </div>
     </div>
+
+    <div id="waitScreen" class="waitScreen" style="height: 1500px; display: none;">
+      <div style="float:left;"><img style="width:90%;" src="../images/sheep.png"/></div>
+      <div style="float:right; padding-top: 15%">No peeking! We're making a list...<br/><br/>and obviously checking it twice!</div>
+    </div>
+
+    <div id="downloadReady" class="downloadReady" style="width: 100%; height: 1500px; display: none; margin: 0 auto">
+      <div class="centered" style="text-align: center;">
+        <p>
+        <h2>Hooray! It's ready!</h2>
+        Click the gift to open and enjoy!
+        </p>
+      </div>
+      <div>
+        <a id="downloadLink" href="/results">
+          <img width="25%" class="centered" src="../images/gift.png"/>
+        </a>
+      </div>
+      <div style="display: block; margin: 0 auto">
+        <p style="text-align: center">
+          From Santa (and <a href="www.mapzen.com">Mapzen</a>), with love <3
+        </p>
+      </div>
+      <div>
+        <button style="color: black; height: 60px" class="scrollButton textInput centered" onclick="document.location.href='/'">
+          Wheeee! That was fun. Let's do it again!
+        </button>
+      </div>
+    </div>
+
+
     <script src="javascripts/custom-file-input.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        var params = getQueryParams(location.search);
+        if (params.hasOwnProperty("id") && params["id"] !== '') {
+          // ask server if data is ready and if so scroll to the bottom with the gift
+          // if not ready yet, scroll to the wait screen
+          // if server says request for this didn't come through, show error
+          document.getElementById('waitScreen').style.display = 'block';
+          document.getElementById('intro').style.display = 'none';
+          document.getElementById('upload').style.display = 'none';
+        }
+        else {
+          document.getElementById('intro').style.display = 'block';
+          document.getElementById('upload').style.display = 'block';
+        }
+      });
+    </script>
+
   </body>
 </html>

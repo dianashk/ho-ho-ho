@@ -3,9 +3,11 @@
 /*****************************************/
 
 body {
-  background-image: url("../images/footprints.png");
+  background-color: #FDF6EE;
   padding: 50px;
-  font: 36px "HanziPen SC", Helvetica, Arial, sans-serif;
+  font-family: 'Architects Daughter', cursive;
+  font-size: 32px;
+
   min-width: 800px;
   max-width: 800px;
   margin: 0 auto !important;
@@ -23,7 +25,8 @@ input {
   -moz-border-radius:10px; /* Firefox */
   -webkit-border-radius: 10px; /* Safari, Chrome */
 
-  font: 20px "HanziPen SC", Helvetica, Arial, sans-serif;
+  font-family: 'Architects Daughter', cursive;
+  font-size: 20px;
 
   -webkit-box-shadow:
           inset 0 0 8px  rgba(0,0,0,0.1),
@@ -52,35 +55,59 @@ input {
   height: 1500px;
 }
 
+.centered {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
 /*****************************************/
 /********* BIG SCROLL DOWN BUTTON ********/
 /*****************************************/
 
 .scrollButton {
   background: #194d33;
-  height: 50px;
+  height: 100px;
+  width: 500px;
+  opacity: 0.7;
   border: none;
-  opacity: 0.3;
   outline: none;
   display: block;
-  float: left;
-  height: 100%;
-  width: 100%;
+  margin: 0 auto;
+  color: wheat;
+
+  /*rounded corners and light gray line*/
+  -moz-border-radius:10px; /* Firefox */
+  -webkit-border-radius: 10px; /* Safari, Chrome */
+
+  font-family: 'Architects Daughter', cursive;
+  font-size: 30px;
+
+  -webkit-box-shadow:
+          inset 0 0 8px  rgba(0,0,0,0.1),
+          0 0 16px rgba(0,0,0,0.1);
+  -moz-box-shadow:
+          inset 0 0 8px  rgba(0,0,0,0.1),
+          0 0 16px rgba(0,0,0,0.1);
+  box-shadow:
+          inset 0 0 8px  rgba(0,0,0,0.1),
+          0 0 16px rgba(0,0,0,0.1);
 }
 
 /*****************************************/
-/********* BIG SCROLL DOWN BUTTON ********/
+/*************** FONTS *******************/
 /*****************************************/
 
 /* FINE PRINT FONT */
 .finePrint {
-  font: 14px "Menlo", Helvetica, Arial, sans-serif;
-  background: rgba(255,255,255,0.5);
+  font: 16px "Inconsolata";
 }
 
 /* TEXT INPUT FONT */
 .textInput {
-  font: 20px "HanziPen SC", Helvetica, Arial, sans-serif;
+  font-family: 'Architects Daughter', cursive;
+  font-size: 20px;
+
   background: rgba(255,255,255,0.5);
   border: 1px solid darkgray;
   text-align: center;
@@ -88,13 +115,15 @@ input {
 
 /* TEXT INPUT FONT */
 .textInfo {
-  font: 24px "HanziPen SC", Helvetica, Arial, sans-serif;
+  font-family: 'Architects Daughter', cursive;
+  font-size: 24px;
   text-align: center;
 }
 
 /* OFFICIAL TEXT FONT */
 .official {
-  font: 22px "Menlo", Helvetica, Arial, serif;
+  font-family: 'Inconsolata', cursive;
+  font-size: 22px;
   float: right;
 }
 
@@ -118,7 +147,8 @@ input {
   -moz-border-radius:10px; /* Firefox */
   -webkit-border-radius: 10px; /* Safari, Chrome */
 
-  font: 20px "HanziPen SC", Helvetica, Arial, sans-serif;
+  font-family: 'Architects Daughter', cursive;
+  font-size: 20px;
 
   -webkit-box-shadow:
           inset 0 0 8px  rgba(0,0,0,0.1),
@@ -178,8 +208,8 @@ input {
   content: '✔';
   position: absolute;
   top: 0px; left: 0px;
-  font-size: 50px;
-  line-height: 0.8;
+  font-size: 65px;
+  line-height: 0.5;
   color: #09ad7e;
   transition: all .2s;
 }

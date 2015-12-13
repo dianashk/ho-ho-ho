@@ -50,18 +50,25 @@ if (!fs.existsSync(RESULTS_DIR)) {
 
 var uploader = require('blueimp-file-upload-expressjs')(options);
 
-router.post('/upload', function(req, res) {
+router.post('/upload', function(req, res, next) {
+  console.log(req.body);
+
   uploader.post(req, res, function (err, obj) {
 
     if (!obj.files) {
-      res.send('No files were uploaded.');
+      res.status(201).send('No files were uploaded.');
       return;
     }
 
     var csvFile = obj.files[0];
 
-    if (!csvFile.fields.hasOwnProperty('confirmNice') || csvFile.fields.confirmNice !== 'on') {
-      res.redirect('/?invalid=unchecked');
+    console.log(obj);
+
+    if (!csvFile ||
+        !csvFile.hasOwnProperty('fields') ||
+        !csvFile.fields.hasOwnProperty('confirmNice') ||
+        csvFile.fields.confirmNice !== 'on') {
+      res.status(202).send('Need confirmation of niceness');
       return;
     }
 
@@ -76,7 +83,7 @@ router.post('/upload', function(req, res) {
       jobMgr.addJob(jobDir, csvFile.fields.email, 'original.csv', function () {
         // delete temp file to keep the server clean
         fs.unlink(tempFile);
-        res.redirect('/results/' + timestamp + '/from-santa-with-love.csv');
+        res.send('/results/' + timestamp + '/from-santa-with-love.csv');
       });
     });
   });
