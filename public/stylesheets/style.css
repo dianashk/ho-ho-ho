@@ -4,6 +4,10 @@
 
 body {
   background-color: #FDF6EE;
+  background-image: url("../images/footprints.png");
+  background-repeat: repeat-y;
+  background-position: center;
+
   padding: 50px;
   font-family: 'Architects Daughter', cursive;
   font-size: 32px;
@@ -234,4 +238,18 @@ input {
 }
 [type="checkbox"]:disabled + label {
   color: #aaa;
+}
+
+
+/* shadows */
+.shadow {
+  -webkit-box-shadow:
+          inset 0 0 8px  rgba(0,0,0,0.1),
+          0 0 16px rgba(0,0,0,0.1);
+  -moz-box-shadow:
+          inset 0 0 8px  rgba(0,0,0,0.1),
+          0 0 16px rgba(0,0,0,0.1);
+  box-shadow:
+          inset 0 0 8px  rgba(0,0,0,0.1),
+          0 0 16px rgba(0,0,0,0.1);
 }
