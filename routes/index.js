@@ -50,6 +50,27 @@ if (!fs.existsSync(RESULTS_DIR)) {
 
 var uploader = require('blueimp-file-upload-expressjs')(options);
 
+
+router.get('/ready', function(req, res) {
+  if (!req.param('id')) {
+    return res.status(404).send('No id specified');
+  }
+  var timestamp = req.param('id');
+  var readyFile = path.join(RESULTS_DIR, timestamp, 'ready');
+
+  console.log(readyFile);
+
+  fs.stat(readyFile, function (err, stats) {
+    if (err) {
+      res.status(200).send('no');
+    }
+    else {
+      console.log(stats);
+      res.status(200).send('yes');
+    }
+  });
+});
+
 router.post('/upload', function(req, res, next) {
   console.log(req.body);
 
@@ -82,7 +103,7 @@ router.post('/upload', function(req, res, next) {
     copyStream.on('finish', function () {
       jobMgr.addJob(jobDir, csvFile.fields.email, 'original.csv', function () {
         // delete temp file to keep the server clean
-        fs.unlink(tempFile);
+        //fs.unlink(tempFile);
         res.send('/results/' + timestamp + '/from-santa-with-love.csv');
       });
     });
