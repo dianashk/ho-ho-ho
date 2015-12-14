@@ -66,22 +66,20 @@ input {
 /*****************************************/
 
 .scrollButton {
+  font-family: 'Architects Daughter', cursive;
+  font-size: 32px;
+  color: #fff;
   background: #194d33;
   height: 100px;
   width: 500px;
-  opacity: 0.7;
   border: none;
   outline: none;
   display: block;
   margin: 0 auto;
-  color: wheat;
 
   /*rounded corners and light gray line*/
   -moz-border-radius:10px; /* Firefox */
   -webkit-border-radius: 10px; /* Safari, Chrome */
-
-  font-family: 'Architects Daughter', cursive;
-  font-size: 30px;
 
   -webkit-box-shadow:
           inset 0 0 8px  rgba(0,0,0,0.1),
@@ -94,13 +92,19 @@ input {
           0 0 16px rgba(0,0,0,0.1);
 }
 
+
+.scrollbutton:hover {
+  background-color: #0E2D1E;
+}
+
+
 /*****************************************/
 /*************** FONTS *******************/
 /*****************************************/
 
 /* FINE PRINT FONT */
 .finePrint {
-  font: 16px "Inconsolata";
+  font: 16px 'Architects Daughter';
 }
 
 /* TEXT INPUT FONT */
@@ -117,14 +121,16 @@ input {
 .textInfo {
   font-family: 'Architects Daughter', cursive;
   font-size: 24px;
+  padding-top: 40px;
   text-align: center;
 }
 
 /* OFFICIAL TEXT FONT */
 .official {
-  font-family: 'Inconsolata', cursive;
-  font-size: 22px;
-  float: right;
+  font-family: 'Architects Daughter', cursive;
+  font-size: 24px;
+  color: #194d33;
+  padding: 5px 0;
 }
 
 /*****************************************/
@@ -143,12 +149,11 @@ input {
 .inputfile + label {
   text-align: left;
   margin-top: 0;
+  font-family: 'Architects Daughter', cursive;
+  font-size: 20px;
   /*rounded corners and light gray line*/
   -moz-border-radius:10px; /* Firefox */
   -webkit-border-radius: 10px; /* Safari, Chrome */
-
-  font-family: 'Architects Daughter', cursive;
-  font-size: 20px;
 
   -webkit-box-shadow:
           inset 0 0 8px  rgba(0,0,0,0.1),
@@ -239,13 +244,7 @@ input {
 
 /* shadows */
 .shadow {
-  -webkit-box-shadow:
-          inset 0 0 8px  rgba(0,0,0,0.1),
-          0 0 16px rgba(0,0,0,0.1);
-  -moz-box-shadow:
-          inset 0 0 8px  rgba(0,0,0,0.1),
-          0 0 16px rgba(0,0,0,0.1);
-  box-shadow:
-          inset 0 0 8px  rgba(0,0,0,0.1),
-          0 0 16px rgba(0,0,0,0.1);
+  border: 1px solid #fff;
+  outline: 1px dotted #194d33;
+  outline-offset: 2px;
 }

@@ -31,12 +31,12 @@
         <img width="20%" class="centered" style="padding-bottom: 2%;" src = "../images/elf.png" />
       </div>
 
-      <div class="textInfo" style="display: block; margin: 0 auto; width: 70%; text-align: center;"><%= intro %></div>
+      <div class="textInfo" style="display: block; margin: 0 auto; width: 70%;"><%= intro %></div>
 
       <!-- scroll down button -->
       <p style="width: 100%">
         <button id="scrollToUpload" type="button" class="scrollButton">
-          <div style="opacity: 0.8;"><b>I want it!</b></div>
+          <b>I want it!</b>
         </button>
       </p>
 
@@ -51,22 +51,20 @@
         <!-- left part of row with text -->
         <div style="float: left; width: 70%; padding-bottom: 5%">
           <div>
-            <p class="textInfo" style="width: 90%; float: left; padding-top: 10%;">
+            <p class="textInfo" style="width: 90%; float: left; padding-top: 10%; text-align: left;">
               So, Santa's gonna need a csv formatted file with a column
               labeled <b>"address"</b>, and you'll get back that same csv
               file but with <b>"lat" "lng"</b> columns!!! How fun!
             </p>
           </div>
           <div class="official" style="float:left; width: 100%;">
-            <div style="vertical-align: text-top; float: left; padding-top: 20px; padding-right: 35px;">that</div>
             <image class="shadow" src="../images/sample-csv-input.png" />
           </div>
           <div class="official" style="float:left;">becomes</div>
           <div class="official" style="float:left; width: 100%; padding-bottom: 20px;">
-            <div style="vertical-align: text-bottom; float: left; padding-top: 15px; padding-right: 35px;">this</div>
             <image class="shadow" src="../images/sample-csv-output.png" />
           </div>
-          <div class="textInfo" style="font-size: 20px; float: left; width: 130%; padding-top: 1%;">
+          <div class="textInfo" style="float: left; width: 130%;">
               You'll get an email with the link to the results so you can
               keep track of them. It's truly the gift that keeps on giving...
               for a week (after that we're going to delete them, so do save them somewhere).
@@ -75,7 +73,7 @@
         </div>
 
         <!-- right part of row with image -->
-        <div style="width: 30%; float: right; padding-top: 10%;">
+        <div style="width: 30%; float: right; padding-top: 14%;">
           <img width="90%" src="../images/candycane.png" />
         </div>
 
@@ -83,25 +81,20 @@
 
 
       <!-- form should take up 70% of the width, and be centered -->
-      <div style="width: 100%;">
+      <div style="width: 100%; ">
         <script src="javascripts/upload.js"></script>
         <form id="uploadForm" action="Javascript:submitForm()" enctype="multipart/form-data">
 
-          <table style="width: 100%;">
+          <table style="width: 90%; outline: 1px dotted #194d33; padding: 5px;">
             <tr>
+              <td>Email</td>
               <td>
-                <input id="email"
-                     type="text"
-                     name="email"
-                     class="textInput"
-                     style="width: 415px;
-                            display: block;
-                            margin: 0 auto;"
-                     placeholder="Email: naughty@northpole.com" />
+                <input id="email" type="text" name="email" class="textInput" style="width: 415px; display: block; margin: 0 auto;" placeholder="Email: naughty@northpole.com" />
               </td>
             </tr>
 
             <tr>
+            <td>Upload file</td>
               <td>
                 <!-- file selector button -->
                 <div style="display: block; margin: 0 auto;">
@@ -113,12 +106,9 @@
                          data-multiple-caption="{count} files selected" multiple />
 
                   <!-- Label for file selector with little svg icon -->
-                  <label style="height: 90px; width: 450px; text-align: center; display: block; margin: 0 auto;" for="file">
+                  <label style="height: 60px; width: 450px; text-align: center; display: block; margin: 0 auto;" for="file">
 
-                    <svg style="width: 100%"
-                         xmlns="http://www.w3.org/2000/svg"
-                         viewBox="0 -10 64 64"
-                         height="40">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -10 64 64" height="40">
 
                       <path fill="wheat"
                             d="M42.361,13.271c-0.5-1.865-2.423-2.976-4.287-2.476l-16.261,4.357c-1.863,0.5-2.974,2.422-2.475,4.288
@@ -133,8 +123,7 @@
                                C44.994,39.417,43.678,42.297,41.172,43.743z M39.369,15.625l-16.261,4.357c-0.799,0.214-1.623-0.262-1.837-1.061
                                c-0.215-0.8,0.261-1.624,1.061-1.839l16.26-4.356c0.799-0.214,1.623,0.262,1.838,1.062C40.644,14.587,40.168,15.412,39.369,15.625z">
                       </path>
-                    </svg>
-                    <p style="width: 450px; text-align: center; display: block; margin: 0 auto;">Pick a CSV file...</p>
+                    </svg> Pick a CSV file...
                   </label>
                 </div>
               </td>
@@ -142,17 +131,13 @@
             <tr style="height: 35px;"></tr>
             <tr>
               <td>
-                <div style="width: 430px; padding-bottom: 10%; display: block; margin: 0 auto;">
                   <input type="checkbox" id="confirmNice" name="confirmNice" style="float: left;" />
-                  <label class="finePrint" style="float: right;" for="confirmNice">
-                    <%= confirmNice %>
-                  </label>
-                </div>
+                  <label class="finePrint" style="float: right;" for="confirmNice"><%= confirmNice %></label>
               </td>
             </tr>
           </table>
 
-          <div style="width: 70%; display: block; margin: 0 auto;">
+          <div style="width: 70%; display: block; margin: 0 auto; padding-top: 10px;">
             <button id="send" type="submit" class="scrollButton">
               <div>Make it, make it!</div>
             </button>
