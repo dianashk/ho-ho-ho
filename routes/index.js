@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
              'develop-elves to whip something up to bring joy to all ' +
              'those odd boys and girls. Hey, the big guy doesn’t judge!',
       oops:  'Oops, the Naughty-or-Nice servers are down at the moment so we’ll have to take your word for it.',
-      confirmNice: 'I hear-by confirm that I’ve been nice, and I accept the Santa-Batch-Geocoder terms of service.',
+      confirmNice: 'I hereby confirm that I’ve been nice, and I accept the Santa-Batch-Geocoder terms of service.',
       temptext: 'let\'s see your csv formatted list... err, file'
     });
 });
@@ -50,6 +50,27 @@ if (!fs.existsSync(RESULTS_DIR)) {
 
 var uploader = require('blueimp-file-upload-expressjs')(options);
 
+
+router.get('/ready', function(req, res) {
+  if (!req.param('id')) {
+    return res.status(404).send('No id specified');
+  }
+  var timestamp = req.param('id');
+  var readyFile = path.join(RESULTS_DIR, timestamp, 'ready');
+
+  console.log(readyFile);
+
+  fs.stat(readyFile, function (err, stats) {
+    if (err) {
+      res.status(200).send('no');
+    }
+    else {
+      console.log(stats);
+      res.status(200).send('yes');
+    }
+  });
+});
+
 router.post('/upload', function(req, res, next) {
   console.log(req.body);
 
@@ -80,7 +101,16 @@ router.post('/upload', function(req, res, next) {
 
     var copyStream = fs.createReadStream(tempFile).pipe(fs.createWriteStream(jobFile));
     copyStream.on('finish', function () {
-      jobMgr.addJob(jobDir, csvFile.fields.email, 'original.csv', function () {
+      var jobParams = {
+        resultsDir: jobDir,
+        email: csvFile.fields.email,
+        name: 'original.csv',
+        timestamp: timestamp
+      };
+      jobMgr.addJob(jobParams, function (err) {
+        if (err) {
+          return res.status(500).send('Sorry, something went wrong. Please try your batch again.');
+        }
         // delete temp file to keep the server clean
         fs.unlink(tempFile);
         res.send('/results/' + timestamp + '/from-santa-with-love.csv');

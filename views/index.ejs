@@ -6,13 +6,10 @@
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script type="text/javascript" src="../javascripts/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript">var JOB_ID = '';</script>
   </head>
 
   <body>
-
-    <h1 style="text-align: center; margin-bottom: 10px;">
-      <%= title %>
-    </h1>
 
     <!-- INTRO DIV -->
     <div id="intro" class="intro" style="display: none;">
@@ -25,6 +22,11 @@
           });
         });
       </script>
+
+      <h1 style="text-align: center; margin-bottom: 10px;">
+        <%= title %>
+      </h1>
+
       <div style="padding-bottom: 10px">
         <img width="20%" class="centered animated wiggle" style="padding-bottom: 2%;" src = "../images/elf.png" />
       </div>
@@ -33,10 +35,12 @@
 
       <!-- scroll down button -->
       <p style="width: 100%">
-        <button id="scrollToUpload" type="button" class="scrollButton">
+        <button id="scrollToUpload" type="button" class="button scrollButton">
           <div style="opacity: 0.8;"><b>I want it!</b></div>
         </button>
       </p>
+
+      <div><image src="../images/footprints.png"/></div>
     </div>
 
     <!-- UPLOAD DIV -->
@@ -50,12 +54,21 @@
             <p class="textInfo" style="width: 90%; float: left; padding-top: 10%;">
               So, Santa's gonna need a csv formatted file with a column
               labeled <b>"address"</b>, and you'll get back that same csv
-              file but with <b>"lat" "lng"</b> columns!!! How fun!
-              <br><br>
-              You'll also get an email with the link to the results so you can
-              keep track of and share them. It's truly the gift that keeps on giving...
-              for a week, after that we're going to delete them, so do save them somewhere.
+              file but with <b>"lat" "lng"</b> columns! How fun!
             </p>
+          </div>
+          <div class="centered">
+            <image class="shadow" src="../images/sample-csv-input.png" />
+          </div>
+          <div class="centered official" style="width: 100%; padding-bottom: 13px;">becomes</div>
+          <div class="centered" style="padding-bottom: 20px;">
+            <image class="shadow" src="../images/sample-csv-output.png" />
+          </div>
+          <div class="textInfo" style="font-size: 20px; float: left; width: 130%; padding-top: 1%;">
+              You'll get an email with the link to the results so you can
+              keep track of them. It's truly the gift that keeps on giving...
+              for a week (after that we're going to delete them, so do save them somewhere).
+
           </div>
         </div>
 
@@ -69,36 +82,7 @@
 
       <!-- form should take up 70% of the width, and be centered -->
       <div style="width: 100%;">
-        <script type="text/javascript">
-          function submitForm() {
-            console.log('submitting');
-
-            var form = document.forms.namedItem("uploadForm");
-            var oData   = new FormData(form);
-
-            oData.append("CustomField", "This is some extra data");
-
-            var oReq = new XMLHttpRequest();
-            oReq.open("POST", "/upload", true);
-            oReq.onload = function (oEvent) {
-              console.log(oReq);
-
-              if (oReq.status === 200 && oReq.responseText) {
-                document.getElementById('downloadLink').href = oReq.responseText;
-                document.getElementById('downloadReady').style.display = 'block';
-                $('html,body').animate({ scrollTop: $('.downloadReady').offset().top}, 2000);
-              } else {
-                alert('There was a problem: ' + oReq.responseText);
-              }
-            };
-
-            oReq.send(oData);
-
-            document.getElementById('waitScreen').style.display = 'block';
-            $('html,body').animate({ scrollTop: $('.waitScreen').offset().top}, 2000);
-
-          }
-        </script>
+        <script src="javascripts/upload.js"></script>
         <form id="uploadForm" action="Javascript:submitForm()" enctype="multipart/form-data">
 
           <table style="width: 100%;">
@@ -194,7 +178,7 @@
       </div>
       <div style="display: block; margin: 0 auto">
         <p style="text-align: center">
-          From Santa (and <a href="www.mapzen.com">Mapzen</a>), with love <3
+          From Santa (and <a href="http://www.mapzen.com">Mapzen</a>), with love <3
         </p>
       </div>
       <div>
@@ -206,23 +190,7 @@
 
 
     <script src="javascripts/custom-file-input.js"></script>
-    <script type="text/javascript">
-      $(document).ready(function () {
-        var params = getQueryParams(location.search);
-        if (params.hasOwnProperty("id") && params["id"] !== '') {
-          // ask server if data is ready and if so scroll to the bottom with the gift
-          // if not ready yet, scroll to the wait screen
-          // if server says request for this didn't come through, show error
-          document.getElementById('waitScreen').style.display = 'block';
-          document.getElementById('intro').style.display = 'none';
-          document.getElementById('upload').style.display = 'none';
-        }
-        else {
-          document.getElementById('intro').style.display = 'block';
-          document.getElementById('upload').style.display = 'block';
-        }
-      });
-    </script>
+    <script src="javascripts/check-for-results.js"></script>
 
   </body>
 </html>
