@@ -16,7 +16,7 @@ body {
 
 /* LINKS */
 a {
-  color: #00B7FF;
+  color: #A32B2C;
 }
 
 /* GENERAL INPUT */
@@ -47,7 +47,7 @@ input {
 
 .intro {
   width: 100%;
-  height: 1500px;
+  height: 2500px;
 }
 
 .upload {
@@ -69,10 +69,10 @@ button{
   font-family: 'Architects Daughter', cursive;
   font-size: 32px;
   color: #fff;
-  background: #194d33;
+  background: #514E25;
   height: 100px;
   width: 500px;
-  border: none;
+  border: 2px solid #3A360F;
   outline: none;
   display: block;
   margin: 0 auto;
@@ -93,9 +93,9 @@ button{
 }
 
 
-button:hover {
+button:hover, button:focus {
   cursor: pointer;
-  background-color: #0E2D1E;
+  background-color: #3A360F;
 }
 
 
@@ -170,15 +170,15 @@ button:hover {
 
 
   color: wheat;
-  background: rgba(153,51,51, 0.9);
-  border-color: rgba(102, 51, 0, 0.5);
+  background: #A33A3F;
+  border: 2px solid #A32B2C;
   display: inline-block;
   cursor: pointer; /* "hand" cursor */
 }
 
 .inputfile:focus + label,
 .inputfile + label:hover {
-  /*background-color: red;*/
+  background: #A32B2C;
 }
 
 /*****************************************/
@@ -218,7 +218,7 @@ button:hover {
   top: 0px; left: 0px;
   font-size: 65px;
   line-height: 0.5;
-  color: #09ad7e;
+  color: #514E25;
   transition: all .2s;
 }
 /* checked mark aspect changes */
