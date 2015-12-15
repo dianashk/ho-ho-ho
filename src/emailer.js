@@ -1,6 +1,7 @@
-
-// Require
 var postmark = require('postmark');
+var EmailTemplate = require('email-templates').EmailTemplate;
+var path = require('path');
+
 
 // Example request
 var clients = {};
@@ -20,27 +21,36 @@ function emailResults(recipient, resultsPath) {
   }
 }
 
-function herokuEmail(recipient, resultsPath, callback) {
-  var emailHtml = '<H1>Results are ready</H1><a href="' + resultsPath + '">get them here...</a>';
+function herokuEmail(recipient, timestamp, callback) {
 
-  var emailOpts = {
-    'From': 'Mapzen Search Team <' + process.env.HEROKU_EMAIL_SIGNATURE + '>',
-    'To': recipient,
-    'Subject': 'Batch Mapzen Search: Special delivery from the North Pole',
-    'HtmlBody': emailHtml,
-    'TextBody': 'Results are ready, get them here: ' + resultsPath
+  var templateDir = path.join(__dirname, 'templates', 'resultsReady');
+
+  var results = new EmailTemplate(templateDir);
+  var data = {
+    giftImage: process.env.HOST_NAME + '/images/gift.png',
+    resultLink: process.env.HOST_NAME + '/results/' + timestamp + '/from-santa-with-love.csv'
   };
 
-  console.log('sending email to ', recipient, resultsPath);
+  results.render(data, function (err, emailBody) {
+    var emailOpts = {
+      'From': 'Mapzen Search Team <' + process.env.HEROKU_EMAIL_SIGNATURE + '>',
+      'To': recipient,
+      'Subject': 'Special batch delivery from the North Pole',
+      'HtmlBody': emailBody.html,
+      'TextBody': emailBody.text
+    };
 
-  clients.heroku.sendEmail(emailOpts, function (err, info) {
-    if( err ){
-      console.error( JSON.stringify( err, null, 2 ) );
-    }
-    else {
-      console.log( 'Sent: ', JSON.stringify( info, null, 2 ) );
-    }
-    callback();
+    console.log('sending email to ', recipient, timestamp);
+
+    clients.heroku.sendEmail(emailOpts, function (err, info) {
+      if (err) {
+        console.error(JSON.stringify(err, null, 2));
+      }
+      else {
+        console.log('Sent: ', JSON.stringify(info, null, 2));
+      }
+      callback();
+    });
   });
 }
 

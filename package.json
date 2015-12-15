@@ -15,6 +15,7 @@
     "csvgeocode": "^2.2.0",
     "debug": "~2.2.0",
     "ejs": "~2.3.3",
+    "email-templates": "^2.0.1",
     "express": "~4.13.1",
     "morgan": "~1.6.1",
     "postmark": "^1.2.1",
