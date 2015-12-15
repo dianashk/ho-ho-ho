@@ -46,8 +46,7 @@ function herokuEmail(recipient, emailBody, callback) {
     'From': 'Mapzen Search Team <' + process.env.HEROKU_EMAIL_SIGNATURE + '>',
     'To': recipient,
     'Subject': 'Special batch delivery from the North Pole',
-    'HtmlBody': emailBody.html,
-    'TextBody': emailBody.text
+    'HtmlBody': emailBody.html
   };
 
   console.log('heroku: sending email to ', recipient);
