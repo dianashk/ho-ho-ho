@@ -4,7 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Really Simple HTML Email Template</title>
+    <title>Happy Holiday Geocoding!</title>
     <link href='https://fonts.googleapis.com/css?family=Architects+Daughter|Inconsolata' rel='stylesheet' type='text/css'>
     <style>
         body {
@@ -22,27 +22,27 @@
         .linkToResults {
             width: 300px;
             float: left;
-            padding-left: 60px;
+            padding-left: 30px;
         }
 
         .details {
             width: 500px;
             float: left;
-            padding-top: 110px;
+            padding-top: 100px;
         }
     </style>
 </head>
 
 <body>
-    <div class="centered">
+    <p class="centered">
         <h1>Your gift from Santa is waiting!</h1>
-    </div>
-    <div class="linkToResults">
+    </p>
+    <p class="linkToResults">
         <a href="<%= resultLink %>">
             <image src="<%= giftImage %>"/>
         </a>
-    </div>
-    <div class="details">
+    </p>
+    <p class="details">
         <h2>
             Click the gift to <a href="<%= resultLink %>">download</a> and enjoy!
             <br/><br/>
@@ -52,7 +52,7 @@
         </h2>
 
         If something goes wrong, email us support@mapzen.com.
-    </div>
+    </p>
 </body>
 
 </html>
