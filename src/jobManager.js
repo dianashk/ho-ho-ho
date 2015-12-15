@@ -1,7 +1,6 @@
-var fs = require('fs');
 var childProcess = require('child_process');
 
-module.exports.addJob = function addJob(resultsDir, email, name, callback) {
+module.exports.addJob = function addJob(jobParams, callback) {
 
   var child = childProcess.fork('./src/worker.js');
 
@@ -11,7 +10,7 @@ module.exports.addJob = function addJob(resultsDir, email, name, callback) {
       return;
     }
     if (msg.hasOwnProperty('type') && msg.type === 'started') {
-      callback(null, msg.resultPath);
+      callback();
     }
 
     if (msg.type === 'finished') {
@@ -20,6 +19,8 @@ module.exports.addJob = function addJob(resultsDir, email, name, callback) {
   });
 
   // start the child processing with a message
-  child.send({type: 'start', resultsDir: resultsDir, email: email, name: name});
+  child.send({
+    type: 'start',
+    jobParams: jobParams
+  });
 };
-

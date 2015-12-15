@@ -6,17 +6,17 @@ var emailer = require('./emailer');
 function setup() {
   process.on('message', function(msg) {
     if (msg.hasOwnProperty('type') && msg.type === 'start') {
-      doWork(msg.resultsDir, msg.email, msg.name);
+      doWork(msg.jobParams);
     }
   });
 }
 
-function doWork(resultsDir, email, name) {
+function doWork(jobParams) {
 
-  var inputPath = path.resolve(path.join(resultsDir, name));
-  var resultPath = path.resolve(path.join(resultsDir, 'from-santa-with-love.csv'));
+  var inputPath = path.resolve(path.join(jobParams.resultsDir, jobParams.name));
+  var resultPath = path.resolve(path.join(jobParams.resultsDir, 'from-santa-with-love.csv'));
 
-  console.log('New Job:', inputPath, email, resultPath);
+  console.log('New Job:', inputPath, jobParams.email, resultPath);
   process.send({type: 'started', resultPath: resultPath});
 
   //write to a file
@@ -45,9 +45,9 @@ function doWork(resultsDir, email, name) {
     console.log('row', result, row);
   })
   .on('complete', function (summary) {
-    console.log('[FINISHED]', inputPath, email, resultPath, summary);
-    fs.writeFileSync(path.join(resultsDir,'ready'), 'come and get it');
-    emailer(email, resultPath, function () {
+    console.log('[FINISHED]', inputPath, jobParams.email, resultPath, summary);
+    fs.writeFileSync(path.join(jobParams.resultsDir,'ready'), 'come and get it');
+    emailer(jobParams.email, jobParams.timestamp, function () {
       process.send({ type: 'finished', resultPath: resultPath, summary: summary });
     });
   });
