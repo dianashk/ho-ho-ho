@@ -5,7 +5,7 @@ var postmark = require('postmark');
 // Example request
 var clients = {};
 
-console.log(process.env.HEROKU_EMAIL_TOKEN);
+console.log(process.env.HEROKU_EMAIL_TOKEN, process.env.ON_HEROKU);
 
 if (process.env.HEROKU_EMAIL_TOKEN) {
   clients.heroku = new postmark.Client(process.env.HEROKU_EMAIL_TOKEN);
@@ -31,7 +31,7 @@ function herokuEmail(recipient, resultsPath) {
   };
 
   console.log('sending email');
-  
+
   clients.heroku.sendEmail(emailOpts, function (err, info) {
     if( err ){
       console.error( JSON.stringify( err, null, 2 ) );
