@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
              'develop-elves to whip something up to bring joy to all ' +
              'those odd boys and girls. Hey, the big guy doesn’t judge!',
       oops:  'Oops, the Naughty-or-Nice servers are down at the moment so we’ll have to take your word for it.',
-      confirmNice: 'I hear-by confirm that I’ve been nice, and I accept the Santa-Batch-Geocoder terms of service.',
+      confirmNice: 'I hereby confirm that I’ve been nice, and I accept the Santa-Batch-Geocoder terms of service.',
       temptext: 'let\'s see your csv formatted list... err, file'
     });
 });
@@ -101,9 +101,18 @@ router.post('/upload', function(req, res, next) {
 
     var copyStream = fs.createReadStream(tempFile).pipe(fs.createWriteStream(jobFile));
     copyStream.on('finish', function () {
-      jobMgr.addJob(jobDir, csvFile.fields.email, 'original.csv', function () {
+      var jobParams = {
+        resultsDir: jobDir,
+        email: csvFile.fields.email,
+        name: 'original.csv',
+        timestamp: timestamp
+      };
+      jobMgr.addJob(jobParams, function (err) {
+        if (err) {
+          return res.status(500).send('Sorry, something went wrong. Please try your batch again.');
+        }
         // delete temp file to keep the server clean
-        //fs.unlink(tempFile);
+        fs.unlink(tempFile);
         res.send('/results/' + timestamp + '/from-santa-with-love.csv');
       });
     });

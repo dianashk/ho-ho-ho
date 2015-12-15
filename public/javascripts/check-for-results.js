@@ -48,7 +48,7 @@ $(document).ready(function () {
   else {
     document.getElementById('intro').style.display = 'block';
     document.getElementById('upload').style.display = 'block';
-    //$('html,body').animate({ scrollTop: $(".intro").offset().top}, 2000);
+    $('html,body').animate({ scrollTop: $(".intro").offset().top}, 2000);
   }
 });
 

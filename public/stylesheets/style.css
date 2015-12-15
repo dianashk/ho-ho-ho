@@ -65,7 +65,7 @@ input {
 /********* BIG SCROLL DOWN BUTTON ********/
 /*****************************************/
 
-.scrollButton {
+button{
   font-family: 'Architects Daughter', cursive;
   font-size: 32px;
   color: #fff;
@@ -93,7 +93,8 @@ input {
 }
 
 
-.scrollbutton:hover {
+button:hover {
+  cursor: pointer;
   background-color: #0E2D1E;
 }
 
@@ -143,11 +144,13 @@ input {
   opacity: 0;
   overflow: hidden;
   position: relative;
+  padding-top: 0px;
   z-index: -1;
 }
 
-.inputfile + label {
-  text-align: left;
+.inputfileLabel {
+  text-align: center;
+  vertical-align: middle;
   margin-top: 0;
   font-family: 'Architects Daughter', cursive;
   font-size: 20px;
@@ -241,10 +244,58 @@ input {
   color: #aaa;
 }
 
+/* wiggle animation */
+.animated {
+   -webkit-animation-duration: 10s;
+   animation-duration: 10s;
+   -webkit-animation-fill-mode: both;
+   animation-fill-mode: both;
+}
+
+@-webkit-keyframes wiggle {
+   0% { -webkit-transform: rotate(9deg); }
+   20% { -webkit-transform: rotate(-8deg); }
+   40% { -webkit-transform: rotate(7deg); }
+   60% { -webkit-transform: rotate(-6deg); }
+   80% { -webkit-transform: rotate(5deg); }
+   90% { -webkit-transform: rotate(0deg); }
+   100% { -webkit-transform: rotate(0deg); }
+}
+
+@keyframes wiggle {
+   0% { transform: rotate(9deg); }
+   20% { transform: rotate(-8deg); }
+   40% { transform: rotate(7deg); }
+   60% { transform: rotate(-6deg); }
+   80% { transform: rotate(5deg); }
+   90% { transform: rotate(0deg); }
+   100% { transform: rotate(0deg); }
+}
+
+.wiggle:hover {
+   -webkit-animation-name: wiggle;
+   animation-name: wiggle;
+   -webkit-animation-timing-function: ease-in;
+   animation-timing-function: ease-in;
+}
+
+.animated.wiggle {
+   -webkit-animation-duration: 0.75s;
+   animation-duration: 0.75s;
+}
 
 /* shadows */
 .shadow {
   border: 1px solid #fff;
   outline: 1px dotted #194d33;
   outline-offset: 2px;
+}
+
+.outline {
+    border: 1px dashed #194d33;
+    outline-offset: 5px;
+    padding: 5px;
+    /*rounded corners and light gray line*/
+    -moz-border-radius:10px; /* Firefox */
+    -webkit-border-radius: 10px; /* Safari, Chrome */
 }
