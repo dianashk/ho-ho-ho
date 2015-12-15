@@ -6,44 +6,21 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Happy Holiday Geocoding!</title>
     <link href='https://fonts.googleapis.com/css?family=Architects+Daughter|Inconsolata' rel='stylesheet' type='text/css'>
-    <style>
-        body {
-            font-family: 'Architects Daughter', cursive;
-        }
-
-        h1 {
-            font-size: 30px;
-        }
-
-        h2 {
-            font-size: 16px;
-        }
-
-        .linkToResults {
-            width: 300px;
-            float: left;
-            padding-left: 30px;
-        }
-
-        .details {
-            width: 500px;
-            float: left;
-            padding-top: 100px;
-        }
-    </style>
 </head>
 
 <body>
-    <p class="centered">
-        <h1>Your gift from Santa is waiting!</h1>
-    </p>
-    <p class="linkToResults">
+    <div>
+        <h1 style="font-family: 'Architects Daughter', cursive; font-size: 30px;">Your gift from Santa is waiting!</h1>
+    </div>
+
+    <p style="width: 300px; float: left; padding-left: 30px;">
         <a href="<%= resultLink %>">
             <image src="<%= giftImage %>"/>
         </a>
     </p>
-    <p class="details">
-        <h2>
+    <p style="width: 500px; float: left; padding-top: 100px;     width: 500px;">
+        <h2 style="font-family: 'Architects Daughter', cursive; font-size: 16px;">
+
             Click the gift to <a href="<%= resultLink %>">download</a> and enjoy!
             <br/><br/>
             Keep in mind that these results, like the holidays are fleeting.
