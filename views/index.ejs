@@ -18,7 +18,7 @@
         $(document).ready(function () {
           $("#scrollToUpload").click(function() {
             document.getElementById('upload').style.display = 'block';
-            $('html,body').animate({ scrollTop: $(".upload").offset().top}, 2000);
+            $('html,body').animate({ scrollTop: $(".upload").offset().top}, 3500);
           });
         });
       </script>
@@ -49,12 +49,12 @@
       <div style="width: 100%; padding-bottom: 6%;">
 
         <!-- left part of row with text -->
-        <div style="float: left; width: 70%; padding-bottom: 5%">
+        <div style="float: left; width: 70%; padding-bottom: 30px">
           <div>
             <p class="textInfo" style="width: 90%; float: left; padding-top: 10%; text-align: left;">
               So, Santa's gonna need a csv formatted file with a column
               labeled <b>"address"</b>, and you'll get back that same csv
-              file but with <b>"lat" "lng"</b> columns! How fun!
+              file but with <b>"lat" "lng"</b> columns!
             </p>
           </div>
 
@@ -65,12 +65,7 @@
           <div class="official" style="float:left; width: 100%; padding-bottom: 20px;">
             <image class="outline" src="../images/sample-csv-output.png" />
           </div>
-          <div class="textInfo" style="float: left; width: 130%;">
-              You'll get an email with the link to the results so you can
-              keep track of them. It's truly the gift that keeps on giving...
-              for a week (after that we're going to delete them, so do save them somewhere).
-
-          </div>
+          <div class="official" style="float:left;">How fun!</div>
         </div>
 
         <!-- right part of row with image -->
@@ -81,16 +76,15 @@
       </div>
 
 
-      <!-- form should take up 70% of the width, and be centered -->
-      <div style="width: 100%;">
+      <div style="float:left;">
         <script src="javascripts/upload.js"></script>
         <form id="uploadForm" action="Javascript:submitForm()" enctype="multipart/form-data">
 
-          <div class="centered" style="padding-left: 13%">
-          <table class="outline" style="width: 70%; padding-top: 25px; padding-bottom: 25px; padding-right: 25px; padding-left: 25px">
+          <div style="padding-left: 0%; ">
+          <table class="outline" style="width: 450px; padding: 15px;">
             <tr>
               <td>
-                <input id="email" type="text" name="email" class="textInput" style="width: 415px; display: block; margin: 0 auto;" placeholder="Email: naughty@northpole.com" />
+                <input id="email" type="text" name="email" class="textInput" style="width: 370px; display: block; margin: 0 auto;" placeholder="Email: naughty@northpole.com" />
               </td>
             </tr>
 
@@ -106,7 +100,7 @@
                          data-multiple-caption="{count} files selected" multiple />
 
                   <!-- Label for file selector with little svg icon -->
-                  <label class="inputfileLabel" style="height: 60px; width: 450px; display: block; margin: 0 auto;" for="file">
+                  <label class="inputfileLabel" style="height: 60px; width: 400px; display: block; margin: 0 auto;" for="file">
                     <p style="margin: 0 auto; padding-top: 16px;">Pick a CSV file...</p>
                   </label>
                 </div>
@@ -122,7 +116,7 @@
             <tr style="height: 35px;"></tr>
             <tr>
                 <td>
-                  <button id="send" type="submit" class="scrollButton">
+                  <button id="send" type="submit" class="scrollButton" style="width: 450px;">
                       <div>Make it, make it!</div>
                   </button>
                 </td>
@@ -130,6 +124,16 @@
           </table>
           </div>
         </form>
+      </div>
+      <div class="textInfo" style="float: left; width: 200px; font-size: 18px; display: block;">
+        You'll get an email with the link to the results.
+        <br/><br/><br/>
+        Please make sure your csv file has the proper column headers.
+        <br/><br/><br/>
+        Don't forget to read the terms of service.
+        <br/><br/>
+        It's truly the gift that keeps on giving...
+        for a week (after that we're going to delete them, so do save them somewhere).
       </div>
     </div>
 
