@@ -1,7 +1,11 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Really Simple HTML Email Template</title>
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter|Inconsolata' rel='stylesheet' type='text/css'>
     <style>
         body {
             font-family: 'Architects Daughter', cursive;
@@ -27,30 +31,28 @@
             padding-top: 110px;
         }
     </style>
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter|Inconsolata' rel='stylesheet'
-          type='text/css'>
 </head>
 
 <body>
-<div class="centered">
-    <h1>Your gift from Santa is waiting!</h1>
-</div>
-<div class="linkToResults">
-    <a href="<%= resultLink %>">
-        <image src="<%= giftImage %>"/>
-    </a>
-</div>
-<div class="details">
-    <h2>
-        Click the gift to <a href="<%= resultLink %>">download</a> and enjoy!
-        <br/><br/>
-        Keep in mind that these results, like the holidays are fleeting.
-        We will continue to make them available at this link for 2 days.
-        After that time, they will be permanently deleted. Please plan accordingly.
-    </h2>
+    <div class="centered">
+        <h1>Your gift from Santa is waiting!</h1>
+    </div>
+    <div class="linkToResults">
+        <a href="<%= resultLink %>">
+            <image src="<%= giftImage %>"/>
+        </a>
+    </div>
+    <div class="details">
+        <h2>
+            Click the gift to <a href="<%= resultLink %>">download</a> and enjoy!
+            <br/><br/>
+            Keep in mind that these results, like the holidays are fleeting.
+            We will continue to make them available at this link for 2 days.
+            After that time, they will be permanently deleted. Please plan accordingly.
+        </h2>
 
-    If something goes wrong, email us support@mapzen.com.
-</div>
+        If something goes wrong, email us support@mapzen.com.
+    </div>
 </body>
 
 </html>
