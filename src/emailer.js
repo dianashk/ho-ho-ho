@@ -50,7 +50,7 @@ function herokuEmail(recipient, emailBody, callback) {
     'TextBody': emailBody.text
   };
 
-  console.log('heroku: sending email to ', recipient, timestamp);
+  console.log('heroku: sending email to ', recipient);
 
   clients.heroku.sendEmail(emailOpts, function (err, info) {
     if (err) {
