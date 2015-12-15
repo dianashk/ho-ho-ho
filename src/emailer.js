@@ -24,10 +24,11 @@ function herokuEmail(recipient, resultsPath) {
   var emailHtml = '<H1>Results are ready</H1><a href="' + resultsPath + '">get them here...</a>';
 
   var emailOpts = {
-    'From': '"Mapzen Search Team" <noreply@pelias.mapzen.com>',
+    'From': 'Mapzen Search Team <noreply@pelias.mapzen.com>',
     'To': recipient,
     'Subject': 'Batch Mapzen Search: Special delivery from the North Pole',
-    'HtmlBody': emailHtml
+    'HtmlBody': emailHtml,
+    'TextBody': 'Results are ready, get them here: ' + resultsPath
   };
 
   console.log('sending email');
