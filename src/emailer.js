@@ -20,7 +20,7 @@ function emailResults(recipient, resultsPath) {
   }
 }
 
-function herokuEmail(recipient, resultsPath) {
+function herokuEmail(recipient, resultsPath, callback) {
   var emailHtml = '<H1>Results are ready</H1><a href="' + resultsPath + '">get them here...</a>';
 
   var emailOpts = {
@@ -31,7 +31,7 @@ function herokuEmail(recipient, resultsPath) {
     'TextBody': 'Results are ready, get them here: ' + resultsPath
   };
 
-  console.log('sending email');
+  console.log('sending email to ', recipient, resultsPath);
 
   clients.heroku.sendEmail(emailOpts, function (err, info) {
     if( err ){
@@ -40,6 +40,7 @@ function herokuEmail(recipient, resultsPath) {
     else {
       console.log( 'Sent: ', JSON.stringify( info, null, 2 ) );
     }
+    callback();
   });
 }
 
