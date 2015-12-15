@@ -20,7 +20,8 @@ function emailResults(recipient, timestamp, callback) {
   var results = new EmailTemplate(templateDir);
   var data = {
     giftImage: host + '/images/gift.png',
-    resultLink: host + '/results/' + timestamp + '/from-santa-with-love.csv'
+    resultLink: host + '/results/' + timestamp + '/from-santa-with-love.csv',
+    resultSite: host + '?id=' + timestamp
   };
 
   results.render(data, function (err, emailBody) {
