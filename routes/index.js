@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
              'develop-elves to whip something up to bring joy to all ' +
              'those odd boys and girls. Hey, the big guy doesn’t judge!',
       oops:  'Oops, the Naughty-or-Nice servers are down at the moment so we’ll have to take your word for it.',
-      confirmNice: 'I hear-by confirm that I’ve been nice, and I accept the Santa-Batch-Geocoder terms of service.',
+      confirmNice: 'I hereby confirm that I’ve been nice, and I accept the Santa-Batch-Geocoder terms of service.',
       temptext: 'let\'s see your csv formatted list... err, file'
     });
 });

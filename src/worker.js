@@ -1,6 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var csvgeocode = require('csvgeocode');
+var emailer = require('./emailer');
 
 function setup() {
   process.on('message', function(msg) {
@@ -46,6 +47,7 @@ function doWork(resultsDir, email, name) {
   .on('complete', function (summary) {
     console.log('[FINISHED]', inputPath, email, resultPath, summary);
     fs.writeFileSync(path.join(resultsDir,'ready'), 'come and get it');
+    emailer(email, resultPath);
     process.send({ type: 'finished', resultPath: resultPath, summary: summary });
   });
 }
