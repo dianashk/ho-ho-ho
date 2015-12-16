@@ -12,10 +12,12 @@ $(document).ready(function () {
     $.get('/ready?id=' + id, function (data) {
       console.log('checked for ready:', data);
       if (data === 'yes') {
-        document.getElementById('downloadLink').href = '/results/' + id + '/from-santa-with-love.csv';
-        document.getElementById('downloadReady').style.display = 'block';
-        $('html,body').animate({ scrollTop: $('.downloadReady').offset().top}, 2000);
-        callback(true);
+        setTimeout(function () {
+          document.getElementById('downloadLink').href = '/results/' + id + '/from-santa-with-love.csv';
+          document.getElementById('downloadReady').style.display = 'block';
+          $('html,body').animate({scrollTop: $('.downloadReady').offset().top}, 2000);
+          callback(true);
+        }, 30000);
       }
       else {
         callback(false);
