@@ -3,6 +3,7 @@ var path = require('path');
 var express = require('express');
 var router = express.Router();
 var jobMgr = require('../src/jobManager');
+var dataMgr = require('../src/dataManager');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -56,17 +57,18 @@ router.get('/ready', function(req, res) {
     return res.status(404).send('No id specified');
   }
   var timestamp = req.param('id');
-  var readyFile = path.join(RESULTS_DIR, timestamp, 'ready');
+  var remotePath = timestamp + '/from-santa-with-love.csv';
 
-  console.log(readyFile);
+  console.log('Check remote path exists: ', remotePath);
 
-  fs.stat(readyFile, function (err, stats) {
-    if (err) {
-      res.status(200).send('no');
+  dataMgr.exists(remotePath, function (err, found, publicUrl) {
+    if (found) {
+      console.log('Remote path exists: ', remotePath);
+      res.status(200).send(publicUrl);
     }
     else {
-      console.log(stats);
-      res.status(200).send('yes');
+      console.log('Remote path not found: ', remotePath);
+      res.status(200).send('no');
     }
   });
 });
@@ -113,7 +115,7 @@ router.post('/upload', function(req, res, next) {
         }
         // delete temp file to keep the server clean
         fs.unlink(tempFile);
-        res.send('/results/' + timestamp + '/from-santa-with-love.csv');
+        res.send(timestamp);
       });
     });
   });
