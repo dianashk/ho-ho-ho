@@ -1,34 +1,42 @@
+var HAS_ID_PARAM = false;
 
 $(document).ready(function () {
   var params = getQueryParams(location.search);
   if (params && params.hasOwnProperty('id')) {
     JOB_ID = getQueryParams(location.search)['id'];
+    HAS_ID_PARAM = true;
   }
   else {
     JOB_ID = '';
   }
 
-  function checkReady(id, callback) {
-    $.get('/ready?id=' + id, function (data) {
-      console.log('checked for ready:', data);
-      if (data === 'yes') {
-        document.getElementById('downloadLink').href = '/results/' + id + '/from-santa-with-love.csv';
-        document.getElementById('downloadReady').style.display = 'block';
-        $('html,body').animate({ scrollTop: $('.downloadReady').offset().top}, 2000);
-        callback(true);
-      }
-      else {
-        callback(false);
-      }
-    });
-  }
+  updateJobStatus();
+});
 
+function checkReady(id, callback) {
+  $.get('/ready?id=' + id, function (data) {
+    console.log('checked for ready:', data);
+    if (data !== 'no') {
+      document.getElementById('downloadLink').href = data;
+      document.getElementById('downloadReady').style.display = 'block';
+      $('html,body').animate({scrollTop: $('.downloadReady').offset().top}, 2000);
+      callback(true);
+    }
+    else {
+      callback(false);
+    }
+  });
+}
+
+function updateJobStatus() {
   if (JOB_ID && JOB_ID !== '') {
     // ask server if data is ready and if so scroll to the bottom with the gift
     // if not ready yet, scroll to the wait screen
     // if server says request for this didn't come through, show error
-    document.getElementById('intro').style.display = 'none';
-    document.getElementById('upload').style.display = 'none';
+    if (HAS_ID_PARAM) {
+      document.getElementById('intro').style.display = 'none';
+      document.getElementById('upload').style.display = 'none';
+    }
 
     checkReady(JOB_ID, function (res) {
       if (res === false) {
@@ -41,7 +49,7 @@ $(document).ready(function () {
               clearInterval(interval);
             }
           });
-        }, 60000); // every minute
+        }, 60000/3); // every minute
       }
     });
   }
@@ -50,7 +58,7 @@ $(document).ready(function () {
     document.getElementById('upload').style.display = 'block';
     $('html,body').animate({ scrollTop: $(".intro").offset().top}, 2000);
   }
-});
+}
 
 function getQueryParams(qs) {
   qs = qs.split('+').join(' ');

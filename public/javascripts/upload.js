@@ -41,9 +41,8 @@ function submitForm() {
   req.open("POST", "/upload", true);
   req.onload = function (oEvent) {
     if (req.status === 200 && req.responseText) {
-      document.getElementById('downloadLink').href = req.responseText;
-      document.getElementById('downloadReady').style.display = 'block';
-      $('html,body').animate({ scrollTop: $('.downloadReady').offset().top}, 2000);
+      JOB_ID = req.responseText;
+      updateJobStatus();
     } else {
       alert('There was a problem: ' + req.responseText);
     }
