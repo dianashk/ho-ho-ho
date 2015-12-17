@@ -83,13 +83,13 @@
           <div style="padding-left: 0%; ">
           <table class="outline" style="width: 450px; padding: 15px;">
             <tr>
-              <td>
+              <td id="emailRow">
                 <input id="email" type="text" name="email" class="textInput" style="width: 370px; display: block; margin: 0 auto;" placeholder="Email: naughty@northpole.com" />
               </td>
             </tr>
 
             <tr>
-              <td>
+              <td id="fileRow">
                 <!-- file selector button -->
                 <div class="centered">
                   <!-- hidden file input selector -->
@@ -100,7 +100,7 @@
                          data-multiple-caption="{count} files selected" multiple />
 
                   <!-- Label for file selector with little svg icon -->
-                  <label class="inputfileLabel" style="height: 60px; width: 400px; display: block; margin: 0 auto;" for="file">
+                  <label id="inputfileLabel" class="inputfileLabel" style="height: 60px; width: 400px; display: block; margin: 0 auto;" for="file">
                     <p style="margin: 0 auto; padding-top: 15px;"><img style="width: 24px; height: 24px; padding-right: 5px; " src="../images/attach.png" />Upload a CSV file...</p>
                   </label>
                 </div>
@@ -108,9 +108,9 @@
             </tr>
             <tr style="height: 35px;"></tr>
             <tr>
-              <td style="padding-left: 8%; padding-right: 8%;">
+              <td id="niceRow" style="padding-left: 8%; padding-right: 8%;">
                 <input type="checkbox" id="confirmNice" name="confirmNice" style="float: left;" />
-                <label class="finePrint" style="float: right;" for="confirmNice"><%= confirmNice %></label>
+                <label id="confirmNiceLabel" class="finePrint" style="float: right;" for="confirmNice"><%= confirmNice %></label>
               </td>
             </tr>
             <tr style="height: 35px;"></tr>

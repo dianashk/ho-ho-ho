@@ -13,14 +13,15 @@ if (process.env.HEROKU_EMAIL_TOKEN && process.env.HEROKU_EMAIL_SIGNATURE) {
   clients.heroku = new postmark.Client(process.env.HEROKU_EMAIL_TOKEN);
 }
 
-function emailResults(recipient, timestamp, callback) {
+function emailResults(recipient, timestamp, publicUrl, callback) {
   var templateDir = path.join(__dirname, '../templates', 'resultsReady');
 
   var host = process.env.HOST_NAME || 'http://localhost:3000';
   var results = new EmailTemplate(templateDir);
   var data = {
     giftImage: host + '/images/gift.png',
-    resultLink: host + '/results/' + timestamp + '/from-santa-with-love.csv'
+    resultLink: publicUrl,
+    resultSite: host + '?id=' + timestamp
   };
 
   results.render(data, function (err, emailBody) {

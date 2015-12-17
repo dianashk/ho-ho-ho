@@ -1,42 +1,33 @@
-<style>
-    body {
-        font-family: 'Architects Daughter', cursive;
-    }
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
-    h1 {
-        font-size: 30px;
-    }
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Happy Holiday Geocoding!</title>
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter|Inconsolata' rel='stylesheet' type='text/css'>
+</head>
 
-    h2 {
-        font-size: 16px;
-    }
-    .linkToResults {
-        width: 30%;
-        float: left;
-    }
-    .details {
-        width: 40%;
-        float: left;
-        padding-top: 10%;
-    }
-</style>
-<link href='https://fonts.googleapis.com/css?family=Architects+Daughter|Inconsolata' rel='stylesheet' type='text/css'>
-<div class="centered">
-    <h1>Your gift from Santa is waiting!</h1>
-</div>
-<div class="linkToResults">
-    <a href="<%= resultLink %>">
-        <image src="<%= giftImage %>"/>
-    </a>
-</div>
-<div class="details">
-    <h2>
-        Click the gift to <a href="<%= resultLink %>">download</a> and enjoy!
-        <br/><br/>
-        Keep in mind that these results, like the holidays are fleeting.
-        We will continue to make them available at this link for 2 days.
-        After that time, they will be permanently deleted. Please plan accordingly.
-    </h2>
+<body>
+    <div>
+        <h1 style="font-family: 'Architects Daughter', cursive; font-size: 30px;">Your gift from Santa is waiting!</h1>
+    </div>
 
-    If something goes wrong, email us support@mapzen.com.
-</div>
+    <div style="width: 500px; float: left; padding-top: 100px; width: 500px;">
+        <h2 style="font-family: 'Architects Daughter', cursive; font-size: 16px;">
+
+            You can <a href="<%= resultLink %>">download it directly</a> or
+            visit <a href="<%= resultSite %>">this page.</a>
+            <br/><br/>
+            Happy holidays from Santa and <a href="https://www.mapzen.com">Mapzen</a>!
+            <br/><br/>
+            Keep in mind that these results, like the holidays are fleeting.
+            We will continue to make them available at this link for 2 days.
+            After that time, they will be permanently deleted. Please plan accordingly.
+        </h2>
+
+        <p>If something goes wrong, email us support@mapzen.com.</p>
+    </div>
+</body>
+
+</html>
