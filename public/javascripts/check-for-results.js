@@ -42,7 +42,7 @@ function updateJobStatus() {
       if (res === false) {
         // if still not ready, enable the wait screen and start checking on a regular basis
         document.getElementById('waitScreen').style.display = 'block';
-        $('html,body').animate({ scrollTop: $(".waitScreen").offset().top}, 2000);
+        $('html,body').animate({ scrollTop: $(".waitScreen").offset().top}, 0);
         var interval = setInterval(function () {
           checkReady(JOB_ID, function (res) {
             if (res === true) {
@@ -56,7 +56,7 @@ function updateJobStatus() {
   else {
     document.getElementById('intro').style.display = 'block';
     document.getElementById('upload').style.display = 'block';
-    $('html,body').animate({ scrollTop: $(".intro").offset().top}, 2000);
+    //$('html,body').animate({ scrollTop: $(".intro").offset().top}, 2000);
   }
 }
 

@@ -1,9 +1,12 @@
 var fs = require('fs');
 var rmdir = require('rimraf');
+var async = require('async');
 var path = require('path');
 var csvgeocode = require('csvgeocode');
 var emailer = require('./emailer');
 var dataMgr = require('./dataManager');
+var csvparse = require('csv-parse');
+var _ = require('lodash');
 
 function setup() {
   process.on('message', function(msg) {
@@ -13,8 +16,88 @@ function setup() {
   });
 }
 
+
 function doWork(jobParams) {
 
+  async.waterfall(
+    [
+      checkValidInput.bind(null, jobParams),
+      uploadJobInfoToS3,
+      uploadInputToS3,
+      runGeocoderBatch,
+      uploadResultsToS3,
+      sendEmail
+    ],
+    function (err) {
+      console.log('Job Done', err);
+
+      // send message to kill fork
+      if (err) {
+        // check if input was valid because that would indicate that we already returned a 200 to the sender
+        // so the only thing to do now in case of error is to upload an error file instead of results
+
+        if (jobParams.validInput) {
+
+          var resultPath = path.resolve(path.join(jobParams.resultsDir, 'from-santa-with-love.csv'));
+          fs.writeFileSync(resultPath + '.err', 'You get coal, because something went wrong. Bummer!\n' + JSON.stringify(err));
+
+          dataMgr.upload(
+            resultPath + '.err',
+            jobParams.timestamp + '/from-santa-with-love.csv',
+            true, //public access
+            function (err, publicUrl) {
+              sendEmail(publicUrl, jobParams, function () {
+                process.send({type: 'error', error: err});
+              });
+            });
+        }
+        else {
+          process.send({type: 'error', error: err});
+        }
+      }
+      else {
+        process.send({type: 'finished'});
+      }
+    }
+  );
+}
+
+
+function checkValidInput(jobParams, callback) {
+  var inputPath = path.resolve(path.join(jobParams.resultsDir, jobParams.name));
+
+  fs.readFile(inputPath, function (err, data) {
+    csvparse(data, {}, function (err, output) {
+
+      if (!output || output.length < 1 || output[0].length < 2) {
+        return callback('The file is empty.');
+      }
+
+      console.log('rows in file:', output.length);
+
+      if (output.length > 10000) {
+        return callback('Too many rows. Try a set with less than 10,000!');
+      }
+
+      var header = output[0];
+
+      var addressColumn = _.filter(header, function (column) {
+        if (column.toLowerCase() === 'address') {
+          return true;
+        }
+      });
+
+      if (!addressColumn || addressColumn.length === 0) {
+        return callback('No "address" column header!');
+      }
+
+      jobParams.validInput = true;
+      callback(null, addressColumn[0], jobParams);
+    });
+  });
+}
+
+function uploadJobInfoToS3(columnName, jobParams, callback) {
   var jobPath = path.resolve(path.join(jobParams.resultsDir, 'job.json'));
 
   // create job file and upload it to S3 for record keeping
@@ -25,11 +108,21 @@ function doWork(jobParams) {
     fs.unlinkSync(jobPath);
 
     // start the work
-    work(jobParams);
+    callback(null, columnName, jobParams);
   });
 }
 
-function work(jobParams) {
+function uploadInputToS3(columnName, jobParams, callback) {
+  var inputPath = path.resolve(path.join(jobParams.resultsDir, jobParams.name));
+
+  // create job file and upload it to S3 for record keeping
+  dataMgr.upload(inputPath, jobParams.timestamp + '/original.csv', false, function () {
+    // start the work
+    callback(null, columnName, jobParams);
+  });
+}
+
+function runGeocoderBatch(columnName, jobParams, callback) {
   var inputPath = path.resolve(path.join(jobParams.resultsDir, jobParams.name));
   var resultPath = path.resolve(path.join(jobParams.resultsDir, 'from-santa-with-love.csv'));
 
@@ -39,7 +132,7 @@ function work(jobParams) {
   process.send({type: 'started', resultPath: resultPath});
 
   var geocodeParams = {
-    url: 'https://search.mapzen.com/v1/search?api_key=search-31dYkFs&text={{address}}',
+    url: 'https://search.mapzen.com/v1/search?api_key=search-31dYkFs&text={{' + (columnName || 'address') + '}}',
     handler: function (body) {
       var results = JSON.parse(body);
 
@@ -58,35 +151,41 @@ function work(jobParams) {
 
   //write to a file
   csvgeocode(inputPath, resultPath, geocodeParams)
-    .on('row', function (result, row) {
-      console.log('row', result, row);
+    .on('row', function (err, row) {
+      console.log('gecocode result: ', err, jobParams.email, jobParams.timestamp, row);
+    })
+    .on('error', function (err) {
+      console.log('geocoding error: ', err);
+      callback(err);
     })
     .on('complete', function (summary) {
       console.log('[FINISHED]', inputPath, jobParams.email, resultPath, summary);
-      setTimeout(
-        function () {
-          // upload file to S3
-          dataMgr.upload(
-            resultPath,
-            jobParams.timestamp + '/from-santa-with-love.csv',
-            true, //public access
-            onUploadComplete.bind(null, jobParams)
-          );
-        },
-        1000);
+      callback(null, resultPath, jobParams);
     });
 }
 
-function onUploadComplete(jobParams, err, publicUrl) {
+function uploadResultsToS3(resultPath, jobParams, callback) {
+  setTimeout(
+    function () {
+      // upload file to S3
+      dataMgr.upload(
+        resultPath,
+        jobParams.timestamp + '/from-santa-with-love.csv',
+        true, //public access
+        function (err, publicUrl) {
+          callback(err, publicUrl, jobParams);
+        }
+      );
+    },
+    1000);
+}
+
+function sendEmail(publicUrl, jobParams, callback) {
   // delete local dir after upload is done
   rmdir.sync(jobParams.resultsDir, {});
 
   // email user about results
-  emailer(jobParams.email, jobParams.timestamp, publicUrl, function () {
-
-    // send message to kill fork
-    process.send({type: 'finished', publicUrl: publicUrl});
-  });
+  emailer(jobParams.email, jobParams.timestamp, publicUrl, callback);
 }
 
 

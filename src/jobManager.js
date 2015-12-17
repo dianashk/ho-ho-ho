@@ -2,6 +2,7 @@ var childProcess = require('child_process');
 
 module.exports.addJob = function addJob(jobParams, callback) {
 
+  var callbackCalled = false;
   var child = childProcess.fork('./src/worker.js');
 
   child.on('message', function (msg) {
@@ -9,12 +10,23 @@ module.exports.addJob = function addJob(jobParams, callback) {
       console.log('unknown message from child process');
       return;
     }
-    if (msg.hasOwnProperty('type') && msg.type === 'started') {
-      callback();
+
+    if (msg.type === 'started') {
+      if (!callbackCalled) {
+        callbackCalled = true;
+        callback();
+      }
     }
 
     if (msg.type === 'finished') {
       child.kill();
+    }
+
+    if (msg.type === 'error') {
+      if (!callbackCalled) {
+        callbackCalled = true;
+        callback(msg.error);
+      }
     }
   });
 

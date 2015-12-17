@@ -44,12 +44,17 @@ function submitForm() {
       JOB_ID = req.responseText;
       updateJobStatus();
     } else {
-      alert('There was a problem: ' + req.responseText);
+      //alert('There was a problem: ' + req.responseText);
+      document.getElementById('waitErrorPlaceholder').innerHTML = req.responseText;
+      document.getElementById('waitText').style.display = 'none';
+      document.getElementById('waitError').style.display = 'block';
     }
   };
 
   req.send(formData);
 
   document.getElementById('waitScreen').style.display = 'block';
+  document.getElementById('waitText').style.display = 'block';
+  document.getElementById('waitError').style.display = 'none';
   $('html,body').animate({ scrollTop: $('.waitScreen').offset().top}, 2000);
 }

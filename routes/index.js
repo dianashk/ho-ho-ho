@@ -110,7 +110,7 @@ router.post('/upload', function(req, res, next) {
       };
       jobMgr.addJob(jobParams, function (err) {
         if (err) {
-          return res.status(500).send('Sorry, something went wrong. Please try your batch again.');
+          return res.status(500).send(err);
         }
         // delete temp file to keep the server clean
         fs.unlink(tempFile);
