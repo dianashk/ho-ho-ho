@@ -42,6 +42,7 @@ function updateJobStatus() {
       if (res === false) {
         // if still not ready, enable the wait screen and start checking on a regular basis
         document.getElementById('waitScreen').style.display = 'block';
+        document.getElementById('downloadReady').style.display = 'none';
         $('html,body').animate({ scrollTop: $(".waitScreen").offset().top}, 0);
         var interval = setInterval(function () {
           checkReady(JOB_ID, function (res) {

@@ -69,7 +69,12 @@ function checkValidInput(jobParams, callback) {
   fs.readFile(inputPath, function (err, data) {
     csvparse(data, {}, function (err, output) {
 
-      if (!output || output.length < 1 || output[0].length < 2) {
+      if (err) {
+        console.log(err);
+        return callback(err.message);
+      }
+
+      if (!output || output.length < 2 || output[0].length < 1) {
         return callback('The file is empty.');
       }
 
@@ -82,13 +87,17 @@ function checkValidInput(jobParams, callback) {
       var header = output[0];
 
       var addressColumn = _.filter(header, function (column) {
-        if (column.toLowerCase() === 'address') {
+        if (column.trim().toLowerCase() === 'address') {
           return true;
         }
       });
 
       if (!addressColumn || addressColumn.length === 0) {
         return callback('No "address" column header!');
+      }
+
+      if (addressColumn[0] !== 'address' && addressColumn[0].trim() === 'address') {
+        return callback('Unexpected leading and trailing whitespace in header row.');
       }
 
       jobParams.validInput = true;

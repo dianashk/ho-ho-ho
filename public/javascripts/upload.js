@@ -47,6 +47,7 @@ function submitForm() {
       //alert('There was a problem: ' + req.responseText);
       document.getElementById('waitErrorPlaceholder').innerHTML = req.responseText;
       document.getElementById('waitText').style.display = 'none';
+      document.getElementById('downloadReady').style.display = 'none';
       document.getElementById('waitError').style.display = 'block';
     }
   };
@@ -55,6 +56,7 @@ function submitForm() {
 
   document.getElementById('waitScreen').style.display = 'block';
   document.getElementById('waitText').style.display = 'block';
+  document.getElementById('downloadReady').style.display = 'none';
   document.getElementById('waitError').style.display = 'none';
   $('html,body').animate({ scrollTop: $('.waitScreen').offset().top}, 2000);
 }
