@@ -85,13 +85,7 @@
         <form id="uploadForm" action="Javascript:submitForm()" enctype="multipart/form-data">
 
           <div style="padding-left: 0%; ">
-          <table class="outline" style="width: 450px; padding: 15px;">
-            <tr>
-              <td id="emailRow">
-                <input id="email" type="text" name="email" class="textInput" style="width: 370px; display: block; margin: 0 auto;" placeholder="Email: naughty@northpole.com" />
-              </td>
-            </tr>
-
+          <table class="outline" style="width: 450px; padding: 15px; padding-top: 0px">
             <tr>
               <td id="fileRow">
                 <!-- file selector button -->
@@ -105,9 +99,18 @@
 
                   <!-- Label for file selector with little svg icon -->
                   <label id="inputfileLabel" class="inputfileLabel" style="height: 60px; width: 400px; display: block; margin: 0 auto;" for="file">
-                    <p style="margin: 0 auto; padding-top: 15px;"><img style="width: 24px; height: 24px; padding-right: 5px; " src="../images/attach.png" />Upload a CSV file...</p>
+                    <p style="margin: 0 auto; padding-top: 15px;">
+                      <img style="width: 24px; height: 24px; padding-right: 5px; " src="../images/attach.png" />
+                      Upload a CSV file...
+                    </p>
                   </label>
                 </div>
+              </td>
+            </tr>
+            <tr style="height: 35px;"></tr>
+            <tr>
+              <td id="emailRow">
+                <input id="email" type="text" name="email" class="textInput" style="width: 370px; display: block; margin: 0 auto;" placeholder="Email: naughty@northpole.com" />
               </td>
             </tr>
             <tr style="height: 35px;"></tr>
@@ -137,9 +140,10 @@
         </form>
       </div>
       <div class="textInfoRight" style="">
-        You'll get an email with the link to the results.
-        <br/><br/><br/>
+        <br/>
         Please make sure your csv file has the proper column headers.
+        <br/><br/><br/>
+        You'll get an email with the link to the results.
         <br/><br/><br/>
         Don't forget to read the <a target="_blank" href="https://mapzen.com/terms/">terms of service</a> and
         <a target="_blank" href="https://mapzen.com/privacy/">privacy policy</a>. Seriously, check them out.

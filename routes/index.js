@@ -4,6 +4,7 @@ var express = require('express');
 var router = express.Router();
 var jobMgr = require('../src/jobManager');
 var dataMgr = require('../src/dataManager');
+var uid = require('uid');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -94,7 +95,7 @@ router.post('/upload', function(req, res, next) {
       return;
     }
 
-    var timestamp = Date.now().toString();
+    var timestamp = uid(10);
     var jobDir = path.resolve(path.join(__dirname, '../public/results/', timestamp));
     var jobFile = path.join(jobDir, 'original.csv');
     var tempFile = path.join(csvFile.options.uploadDir, csvFile.name);

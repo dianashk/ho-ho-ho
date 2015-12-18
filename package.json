@@ -25,6 +25,7 @@
     "postmark": "^1.2.1",
     "rimraf": "^2.4.4",
     "s3": "^4.4.0",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "uid": "0.0.2"
   }
 }
