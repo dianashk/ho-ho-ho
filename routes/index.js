@@ -96,7 +96,7 @@ router.post('/upload', function(req, res, next) {
     }
 
     if (csvFile.error) {
-      res.status.(500).send(err);
+      res.status(500).send(csvFile.error);
       return;
     }
 
