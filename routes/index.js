@@ -95,6 +95,12 @@ router.post('/upload', function(req, res, next) {
       return;
     }
 
+    if (csvFile.error) {
+      res.status.(500).send(err);
+      return;
+    }
+
+
     var timestamp = uid(10);
     var jobDir = path.resolve(path.join(__dirname, '../public/results/', timestamp));
     var jobFile = path.join(jobDir, 'original.csv');
