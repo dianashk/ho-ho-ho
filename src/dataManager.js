@@ -61,8 +61,31 @@ function upload(localPath, remotePath, accessPublic, callback) {
   });
 }
 
+function move(oldRemotePath, newRemotePath, accessPublic, callback) {
+  var params = {
+    Bucket: process.env.S3_BUCKET_NAME,
+    CopySource: process.env.S3_BUCKET_NAME + '/' + oldRemotePath,
+    Key: newRemotePath
+  };
+
+  if (accessPublic) {
+    params.ACL = 'public-read';
+  }
+
+  var mover = client.moveObject(params);
+
+  mover.on('error', function (err) {
+    callback(err);
+  });
+  mover.on('end', function (data) {
+    console.log('Moved file:', oldRemotePath, newRemotePath, data);
+    callback();
+  });
+}
+
 
 module.exports = {
   exists: exists,
-  upload: upload
+  upload: upload,
+  move: move
 };

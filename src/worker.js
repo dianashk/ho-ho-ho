@@ -26,7 +26,8 @@ function doWork(jobParams) {
       uploadInputToS3,
       runGeocoderBatch,
       uploadResultsToS3,
-      sendEmail
+      sendEmail,
+      deleteFinishedJob
     ],
     function (err) {
       console.log('Job Done', err);
@@ -111,11 +112,7 @@ function uploadJobInfoToS3(columnName, jobParams, callback) {
 
   // create job file and upload it to S3 for record keeping
   fs.writeFileSync(jobPath, JSON.stringify(jobParams));
-  dataMgr.upload(jobPath, 'jobs/' + jobParams.timestamp + '.json', false, function () {
-
-    // delete uploaded job file
-    fs.unlinkSync(jobPath);
-
+  dataMgr.upload(jobPath, 'jobs/inprogress/' + jobParams.timestamp + '.json', false, function () {
     // start the work
     callback(null, columnName, jobParams);
   });
@@ -190,11 +187,30 @@ function uploadResultsToS3(resultPath, jobParams, callback) {
 }
 
 function sendEmail(publicUrl, jobParams, callback) {
-  // delete local dir after upload is done
-  rmdir.sync(jobParams.resultsDir, {});
-
   // email user about results
-  emailer(jobParams.email, jobParams.timestamp, publicUrl, callback);
+  emailer(jobParams.email, jobParams.timestamp, publicUrl, function () {
+    callback(null, publicUrl, jobParams);
+  });
+}
+
+function deleteFinishedJob(publicUrl, jobParams, callback) {
+  var oldJobPath = 'jobs/inprogress/' + jobParams.timestamp + '.json';
+  var newJobPath = 'jobs/' + jobParams.timestamp + '.json';
+
+  // move job file from inprogress to finished list
+  dataMgr.move(oldJobPath, newJobPath, false, function (err) {
+
+    if (!err) {
+      // delete local dir after upload is done
+      rmdir.sync(jobParams.resultsDir, {});
+    }
+    else {
+      console.log('ERROR:', JSON.stringify(err));
+    }
+    // this error isn't catastrophic and the job should still succeed
+    callback(null, publicUrl, jobParams);
+  });
+
 }
 
 
