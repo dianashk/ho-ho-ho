@@ -158,7 +158,7 @@ function runGeocoderBatch(columnName, jobParams, callback) {
   //write to a file
   csvgeocode(inputPath, resultPath, geocodeParams)
     .on('row', function (err, row) {
-      console.log('gecocode result: ', err, jobParams.email, jobParams.timestamp, row);
+      console.log('geocoding result: ', err, jobParams.email, jobParams.timestamp, row);
     })
     .on('error', function (err) {
       console.log('geocoding error: ', err);
